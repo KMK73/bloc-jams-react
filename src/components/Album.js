@@ -10,9 +10,52 @@ class Album extends Component {
     });
 
     this.state = {
-       album: album
+       album: album,
+       currentSong: album.songs[0],
+       isPlaying: false
     };
+
+    // initiate an audio element
+    /* Notice that we're not assigning audioElement to the component's state.
+    This is because changes to state (and props) trigger a re-render of the DOM,
+    but our  <audio> element doesn't need to be attached to the DOM.
+    We will need to access the audio element from within class methods, however, so we assign it to this.
+    */
+    this.audioElement = document.createElement('audio');
+
+    // set the first song to the first song in the album array
+    this.audioElement.src = album.songs[0].audioSrc;
   }
+
+  play() {
+      this.audioElement.play();
+      this.setState({ isPlaying: true });
+  }
+
+  pause() {
+       this.audioElement.pause();
+       this.setState({ isPlaying: false });
+  }
+
+  setSong(song){
+    this.audioElement.src = song.audioSrc;
+    this.setState({
+      currentSong: song
+    });
+  }
+
+  handleSongClick(song) {
+     const isSameSong = this.state.currentSong === song;
+
+     if(this.state.isPlaying && isSameSong){
+       this.pause();
+     } else {
+       if (!isSameSong) { this.setSong(song); }     
+       this.play();
+     }
+  }
+
+
   render() {
     return (
       <section className="album">
@@ -34,8 +77,8 @@ class Album extends Component {
              {
                this.state.album.songs.map(
                  (song, index) =>
-                  <tr>
-                    <td>
+                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
+                     <td className="song-actions">
                        <button>
                          <span className="song-number">{index + 1}</span>
                          <span className="ion-play"></span>
@@ -45,8 +88,7 @@ class Album extends Component {
                       <td>{song.title}</td>
                       <td>{song.duration}</td>
                   </tr>
-                )
-             }
+              )}
            </tbody>
          </table>
       </section>
