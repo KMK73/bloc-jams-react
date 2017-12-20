@@ -28,6 +28,8 @@ class Album extends Component {
 
     // set the first song to the first song in the album array
     this.audioElement.src = album.songs[0].audioSrc;
+    // set start volume to 50
+    this.audioElement.volume = 0.5;
   }
 
   componentDidMount() {
@@ -124,6 +126,23 @@ class Album extends Component {
     });
   }
 
+  handleVolumeChange(e){
+    // calculate the new volume from event
+    this.audioElement.volume = e.target.value;
+  }
+
+  formatTime(secondsTime) {
+
+     let minutes = Math.floor(secondsTime / 60);
+     minutes = (minutes >= 10) ? minutes : "0" + minutes;
+     let seconds = Math.floor(secondsTime % 60);
+     seconds = (seconds >= 10) ? seconds : "0" + seconds;
+     console.log(minutes + ":" + seconds);
+     if(seconds === "0NaN"){
+       return "-:--";
+     }
+     return minutes + ":" + seconds;
+   }
 
   render() {
     return (
@@ -155,7 +174,7 @@ class Album extends Component {
                        </button>
                      </td>
                       <td>{song.title}</td>
-                      <td>{song.duration}</td>
+                      <td>{this.formatTime(song.duration)}</td>
                   </tr>
               )}
            </tbody>
@@ -165,9 +184,11 @@ class Album extends Component {
            handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
            handlePrevClick= { () => this.handlePrevClick()}
            handleNextClick={ () => this.handleNextClick()}
-           currentTime={this.audioElement.currentTime}
-           duration={this.audioElement.duration}
+           currentTime={this.formatTime(this.audioElement.currentTime)}
+           duration={this.formatTime(this.audioElement.duration)}
+           currentVolume={this.audioElement.volume}
            handleTimeChange= { (e) => this.handleTimeChange(e) }
+           handleVolumeChange= { (e) => this.handleVolumeChange(e) }
            />
       </section>
     );
