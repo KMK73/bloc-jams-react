@@ -13,6 +13,8 @@ class Album extends Component {
     this.state = {
        album: album,
        currentSong: album.songs[0],
+       currentTime: 0,
+       duration: album.songs[0].duration,
        isPlaying: false
     };
 
@@ -26,6 +28,26 @@ class Album extends Component {
 
     // set the first song to the first song in the album array
     this.audioElement.src = album.songs[0].audioSrc;
+  }
+
+  componentDidMount() {
+    this.eventListeners = {
+        timeupdate: e => {
+          this.setState({ currentTime: this.audioElement.currentTime });
+        },
+        durationchange: e => {
+          this.setState({ duration: this.audioElement.duration });
+        }
+    };
+    this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
+    this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
+  }
+
+  componentWillUnmount() {
+    this.audioElement.src = null;
+    this.audioElement = null;
+    this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
+    this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
   }
 
   play() {
@@ -59,8 +81,7 @@ class Album extends Component {
   handlePrevClick() {
     // find the index of the current song
     const currentIndex = this.state.album.songs.findIndex(
-      (song) =>
-        this.state.currentSong === song
+      (song) => this.state.currentSong === song
     );
     // return if the current song is the first song Math.max to ensure no negative numbers
     const newIndex = Math.max(0, currentIndex-1);
@@ -79,13 +100,28 @@ class Album extends Component {
     );
 
     // get new index for next song
-    const nextIndex = Math.max(this.state.album.songs.length, currentIndex + 1);
+    // const nextIndex = Math.max(this.state.album.songs.length, currentIndex + 1);
+    const nextSongIndex = currentIndex + 1;
+    if (nextSongIndex >= this.state.album.songs.length) { return; }
 
     // set song to make state currentSong
-    this.setSong(this.state.album.songs[nextIndex]);
+    this.setSong(this.state.album.songs[nextSongIndex]);
 
     //play song
-    this.play(); 
+    this.play();
+  }
+
+  handleTimeChange(e) {
+    //calculate new time in the song
+    const newTime = this.audioElement.duration * e.target.value;
+
+    // set the current time property to new time
+    this.audioElement.currentTime = newTime;
+
+    //update the state currentTime
+    this.setState({
+      currentTime: newTime
+    });
   }
 
 
@@ -128,6 +164,10 @@ class Album extends Component {
            currentSong={this.state.currentSong}
            handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
            handlePrevClick= { () => this.handlePrevClick()}
+           handleNextClick={ () => this.handleNextClick()}
+           currentTime={this.audioElement.currentTime}
+           duration={this.audioElement.duration}
+           handleTimeChange= { (e) => this.handleTimeChange(e) }
            />
       </section>
     );
