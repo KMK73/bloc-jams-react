@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
+import PlayerBar from './PlayerBar';
 
 class Album extends Component {
   constructor(props){
@@ -50,10 +51,27 @@ class Album extends Component {
      if(this.state.isPlaying && isSameSong){
        this.pause();
      } else {
-       if (!isSameSong) { this.setSong(song); }     
+       if (!isSameSong) { this.setSong(song); }
        this.play();
      }
   }
+
+  handlePrevClick() {
+    // find the index of the current song
+    const currentIndex = this.state.album.songs.findIndex(
+      (song) =>
+        this.state.currentSong === song
+    );
+    // return if the current song is the first song Math.max to ensure no negative numbers
+    const newIndex = Math.max(0, currentIndex-1);
+
+    // call setSong with new indexed song
+    const newSong = this.state.album.songs[newIndex];
+    this.setSong(newSong);
+    // play song
+    this.play();
+  }
+
 
 
   render() {
@@ -91,6 +109,11 @@ class Album extends Component {
               )}
            </tbody>
          </table>
+         <PlayerBar isPlaying={this.state.isPlaying}
+           currentSong={this.state.currentSong}
+           handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+           handlePrevClick= { () => this.handlePrevClick()}
+           />
       </section>
     );
   }
