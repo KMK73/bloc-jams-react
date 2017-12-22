@@ -1,9 +1,19 @@
 @import "variables.scss";
 
 .App {
-  text-align: center;
-  h1{
-    background-color: $base-color;
+  body, nav, footer, h1, h2, h3, h4, h5 {
+    font-family: $base-font !important;
+  }
+  .page-content {
+    text-align: center; 
+  }
+  header {
+    background: $nav-color;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 4px 4px 0 rgba(0,0,0,0.24);
+    color: #FFFFFF;
+    nav{
+      background: $nav-color;
+    }
   }
 }
 
