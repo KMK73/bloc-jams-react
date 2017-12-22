@@ -47,7 +47,6 @@ class Album extends Component {
 
   componentWillUnmount() {
     this.audioElement.src = null;
-    this.audioElement = null;
     this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
     this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
   }
@@ -137,7 +136,7 @@ class Album extends Component {
      minutes = (minutes >= 10) ? minutes : "0" + minutes;
      let seconds = Math.floor(secondsTime % 60);
      seconds = (seconds >= 10) ? seconds : "0" + seconds;
-     console.log(minutes + ":" + seconds);
+
      if(seconds === "0NaN"){
        return "-:--";
      }
