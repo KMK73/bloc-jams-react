@@ -1,11 +1,15 @@
 @import "variables.scss";
+@import "library.scss";
 
 .App {
   body, nav, footer, h1, h2, h3, h4, h5 {
     font-family: $base-font !important;
   }
+  .mdl-layout__content {
+    background: $background-color;
+  }
   .page-content {
-    text-align: center; 
+    text-align: center;
   }
   header {
     background: $nav-color;
@@ -14,6 +18,22 @@
     nav{
       background: $nav-color;
     }
+    .mdl-layout-title img {
+      max-height: 45px;
+    }
+    .mdl-navigation__link {
+      color: white;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: underline $orange;
+    }
+  }
+
+  .float-left {
+    float: left;
+  }
+  .float-right {
+    float: right;
   }
 }
 
@@ -23,7 +43,6 @@
 }
 
 .App-header {
-  background-color: $base-color;
   height: 150px;
   padding: 20px;
   color: white;
