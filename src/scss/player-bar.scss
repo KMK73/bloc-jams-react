@@ -1,0 +1,29 @@
+@import "variables.scss";
+
+
+.player-bar {
+  vertical-align: middle;
+  .material-icons{
+    font-size: 2.5em;
+
+  }
+  .current-time{
+    float: left;
+  }
+  .total-time {
+    float: right;
+  }
+  .current-time, .total-time {
+    font-size: 10px;
+  }
+
+}
+
+.fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: $pink;
+  color: white;
+}

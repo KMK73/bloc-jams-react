@@ -6,3 +6,13 @@ $background-color: #514E64;
 // font
 // $base-font: 'Nunito', sans-serif;
 $base-font: 'Barlow', sans-serif;
+
+.mdl-slider__background-lower {
+  background: $background-color;
+}
+.mdl-slider__background-upper {
+  background: white;
+}
+.mdl-slider.is-upgraded {
+  color: $background-color;
+}

@@ -146,38 +146,42 @@ class Album extends Component {
   render() {
     return (
       <section className="album">
-        <section id="album-info">
-          <img id="album-cover-art" alt="cover" src={this.state.album.albumCover} />
-          <div className="album-details">
-            <h1 id="album-title">{this.state.album.title}</h1>
-            <h2 className="artist">{this.state.album.artist}</h2>
-            <div id="release-info">{this.state.album.releaseInfo}</div>
-          </div>
-        </section>
-        <table id="song-list">
-           <colgroup>
-             <col id="song-number-column" />
-             <col id="song-title-column" />
-             <col id="song-duration-column" />
-           </colgroup>
-           <tbody>
-             {
-               this.state.album.songs.map(
-                 (song, index) =>
-                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                     <td className="song-actions">
-                       <button>
-                         <span className="song-number">{index + 1}</span>
-                         <span className="ion-play"></span>
-                         <span className="ion-pause"></span>
-                       </button>
-                     </td>
-                      <td>{song.title}</td>
-                      <td>{this.formatTime(song.duration)}</td>
-                  </tr>
-              )}
-           </tbody>
-         </table>
+        <div className="mdl-grid">
+            <section id="album-info" className="mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
+
+                  <div className="demo-card-wide mdl-card mdl-shadow--2dp" style={{background: "url(" + this.state.album.albumCover + ") center / cover"}}>
+                    <div className="mdl-card__supporting-text">
+                        <h2 className="mdl-card__title-text">{this.state.album.title}</h2>
+                        <h4>{this.state.album.artist}</h4>
+                        <span>{this.state.album.releaseInfo}</span>
+                    </div>
+                  </div>
+            </section>
+            <section className="mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
+            <table id="song-list">
+               <colgroup>
+                 <col id="song-number-column" />
+                 <col id="song-title-column" />
+                 <col id="song-duration-column" />
+               </colgroup>
+               <tbody>
+                 {
+                   this.state.album.songs.map(
+                     (song, index) =>
+                     <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
+                        <td className="song-actions">
+                             <span className="song-number">{index + 1}</span>
+                         </td>
+                         <td>
+                           <i className="material-icons">play_circle_filled</i>
+                         </td>
+                          <td>{song.title}</td>
+                          <td>{this.formatTime(song.duration)}</td>
+                      </tr>
+                  )}
+               </tbody>
+             </table>
+         </section>
          <PlayerBar isPlaying={this.state.isPlaying}
            currentSong={this.state.currentSong}
            handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
@@ -189,7 +193,8 @@ class Album extends Component {
            handleTimeChange= { (e) => this.handleTimeChange(e) }
            handleVolumeChange= { (e) => this.handleVolumeChange(e) }
            />
-      </section>
+       </div>
+    </section>
     );
   }
 }
