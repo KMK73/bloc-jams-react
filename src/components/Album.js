@@ -147,7 +147,7 @@ class Album extends Component {
     return (
       <section className="album">
         <div className="mdl-grid">
-            <section id="album-info" className="mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
+            <section id="album-info" className="mdl-cell-stretch mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
 
                   <div className="demo-card-wide mdl-card mdl-shadow--2dp" style={{background: "url(" + this.state.album.albumCover + ") center / cover"}}>
                     <div className="mdl-card__supporting-text">
@@ -157,7 +157,7 @@ class Album extends Component {
                     </div>
                   </div>
             </section>
-            <section className="mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
+            <section id="songs" className=" mdl-cell-stretch mdl-cell--6-col mdl-cell--12-col-tablet  mdl-cell--12-col-phone">
             <table id="song-list">
                <colgroup>
                  <col id="song-number-column" />
@@ -173,7 +173,11 @@ class Album extends Component {
                              <span className="song-number">{index + 1}</span>
                          </td>
                          <td>
-                           <i className="material-icons">play_circle_filled</i>
+                           {this.state.currentSong === song && this.state.isPlaying ? (
+                             <i className="material-icons">pause_circle_filled</i>
+                           ) : (
+                             <i className="material-icons">play_circle_filled</i>
+                           )}
                          </td>
                           <td>{song.title}</td>
                           <td>{this.formatTime(song.duration)}</td>
@@ -182,18 +186,18 @@ class Album extends Component {
                </tbody>
              </table>
          </section>
-         <PlayerBar isPlaying={this.state.isPlaying}
-           currentSong={this.state.currentSong}
-           handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
-           handlePrevClick= { () => this.handlePrevClick()}
-           handleNextClick={ () => this.handleNextClick()}
-           currentTime={this.formatTime(this.audioElement.currentTime)}
-           duration={this.formatTime(this.audioElement.duration)}
-           currentVolume={this.audioElement.volume}
-           handleTimeChange= { (e) => this.handleTimeChange(e) }
-           handleVolumeChange= { (e) => this.handleVolumeChange(e) }
-           />
        </div>
+       <PlayerBar isPlaying={this.state.isPlaying}
+         currentSong={this.state.currentSong}
+         handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+         handlePrevClick= { () => this.handlePrevClick()}
+         handleNextClick={ () => this.handleNextClick()}
+         currentTime={this.formatTime(this.audioElement.currentTime)}
+         duration={this.formatTime(this.audioElement.duration)}
+         currentVolume={this.audioElement.volume}
+         handleTimeChange= { (e) => this.handleTimeChange(e) }
+         handleVolumeChange= { (e) => this.handleVolumeChange(e) }
+         />
     </section>
     );
   }
