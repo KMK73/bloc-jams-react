@@ -13,6 +13,10 @@
     // background-repeat: no-repeat;
     // background-position: center;
   }
+  .hero-title {
+    color: white;
+    font-weight: 200; 
+  }
   .page-content {
     text-align: center;
   }
@@ -72,7 +76,49 @@
 
 .selling-points {
     img{
-      width: 100%;
       height: auto;
+      max-height: 200px;
+    }
+    p {
+      font-size: 14px
+    }
+    h2 {
+      font-size: 20px;
+      text-align: left;
+    }
+    .demo-card-square.mdl-card {
+      // width: 320px;
+      min-height: 350px;
+      border-radius: 4px;
+    }
+    .mdl-card__actions {
+      background: $pink;
+    }
+    .mdl-card__supporting-text {
+      min-height: 40px;
+      text-align: left;
+      justify-content: center;
+      vertical-align: middle !important;
+      // background: $lightGray;
+      width: 100%;
+      color: black;
+    }
+    .demo-card-square > .mdl-card__title {
+      color: #fff;
+    }
+    .demo-card-square{
+      margin: 10px;
+    }
+    #card1 {
+      background:
+        url('/assets/images/background1.jpg') center / cover no-repeat ;
+    }
+    #card2 {
+      background:
+        url('/assets/images/background2.jpg') center / cover no-repeat ;
+    }
+    #card3 {
+      background:
+        url('/assets/images/mobile.jpg') center / cover no-repeat ;
     }
 }
