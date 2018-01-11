@@ -1,7 +1,7 @@
-@import "variables.scss";
-@import "library.scss";
-@import "album.scss";
-@import "player-bar.scss";
+@import "./scss/variables.scss";
+@import "./scss/library.scss";
+@import "./scss/album.scss";
+@import "./scss/player-bar.scss";
 
 .App {
   body, nav, footer, h1, h2, h3, h4, h5 {

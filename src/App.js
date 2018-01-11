@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import Landing from './components/Landing';
 import Library from './components/Library';
 import Album from './components/Album';
-import './scss/App.scss'; // or `.scss` if you chose scss
+import './App.scss'; // or `.scss` if you chose scss
 
 class App extends Component {
   render() {
