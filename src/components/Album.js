@@ -123,22 +123,33 @@ class Album extends Component {
     this.setState({
       currentTime: newTime
     });
+    console.log('current time ', newTime);
+
   }
 
   handleVolumeChange(e){
     // calculate the new volume from event
     this.audioElement.volume = e.target.value;
+    console.log('volume ', e.target.value);
   }
 
   formatTime(secondsTime) {
 
      let minutes = Math.floor(secondsTime / 60);
      minutes = (minutes >= 10) ? minutes : "0" + minutes;
+     minutes = minutes || 0;
+
      let seconds = Math.floor(secondsTime % 60);
+     seconds = seconds || 0;
      seconds = (seconds >= 10) ? seconds : "0" + seconds;
+     console.log(minutes, seconds);
 
      if(seconds === "0NaN"){
-       return "-:--";
+       debugger;
+       seconds = "00";
+     }
+     if(minutes === "0NaN"){
+       minutes = "00"; 
      }
      return minutes + ":" + seconds;
    }
